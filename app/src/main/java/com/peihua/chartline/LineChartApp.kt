@@ -6,7 +6,7 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.peihua.chartline.enums.MainFunctions
 import com.peihua.chartline.screen.FlowRowScreen
-import com.peihua.chartline.screen.LineChartScreen
+import com.peihua.chartline.screen.mpChart.LineChartScreen
 import com.peihua.chartline.screen.QuoteScreen
 import com.peihua.chartline.screen.SplashScreen
 import com.peihua.chartline.screen.mpChart.BarChartScreen

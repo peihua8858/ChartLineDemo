@@ -4,6 +4,8 @@ import android.content.Context
 import androidx.compose.ui.graphics.toArgb
 import com.github.mikephil.charting.charts.LineChart
 import com.github.mikephil.charting.data.BarDataSet
+import com.github.mikephil.charting.data.BarEntry
+import com.github.mikephil.charting.data.Entry
 import com.github.mikephil.charting.data.LineData
 import com.github.mikephil.charting.data.LineDataSet
 import com.peihua.chartline.model.StatsDetail
@@ -27,7 +29,7 @@ fun LineChart.setLineDataSet(lineDataSet: LineDataSet? = null, animateXDuration:
 }
 
 
-fun StatsDetail.lineDataSet(context: Context): LineDataSet =
+fun StatsDetail<Entry>.lineDataSet(context: Context): LineDataSet =
     LineDataSet(this.transactionsEntries, "transactions_per_second").apply {
         mode = LineDataSet.Mode.CUBIC_BEZIER
         color =(if(context.isSystemDarkMode) Purple500 else Purple200).toArgb()
@@ -39,13 +41,12 @@ fun StatsDetail.lineDataSet(context: Context): LineDataSet =
     }
 
 
-//fun StatsDetail.barDataSet(context: Context): BarDataSet =
-//    BarDataSet(this.transactionsEntries, "transactions_per_second").apply {
-//        mode = LineDataSet.Mode.CUBIC_BEZIER
-//        color =(if(context.isSystemDarkMode) Purple500 else Purple200).toArgb()
-//        highLightColor = Purple700.toArgb()
-//        fillAlpha = 20
-//        lineWidth = 1F
-//        setDrawFilled(false)
-//        setDrawCircles(false)
-//    }
+fun StatsDetail<BarEntry>.barDataSet(context: Context): BarDataSet =
+    BarDataSet(this.transactionsEntries, "transactions_per_second").apply {
+        setValueTextSize(10f);
+        setDrawIcons(false);
+//        setValueTypeface(tfLight);
+
+        color =(if(context.isSystemDarkMode) Purple500 else Purple200).toArgb()
+        highLightColor = Purple700.toArgb()
+    }

@@ -67,6 +67,9 @@ fun BarChart(modifier: Modifier = Modifier, data: BarData) {
                 setPinchZoom(true);
                 setDrawGridBackground(false)
                 setDrawBorders(false)
+                setDrawBarShadow(false);
+                setDrawValueAboveBar(true);
+                setMaxVisibleValueCount(60)
                 invalidate()
                 this.data = data
             }

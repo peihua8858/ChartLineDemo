@@ -24,6 +24,7 @@ import androidx.compose.ui.unit.dp
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import androidx.navigation.NavController
 import com.github.mikephil.charting.data.BarData
+import com.github.mikephil.charting.data.BarEntry
 import com.github.mikephil.charting.data.LineData
 import com.peihua.chartline.component.BarChart
 import com.peihua.chartline.component.ErrorView
@@ -33,14 +34,16 @@ import com.peihua.chartline.component.Toolbar
 import com.peihua.chartline.enums.QuoteTimeSpan
 import com.peihua.chartline.enums.RollingAverage
 import com.peihua.chartline.model.StatsDetail
+import com.peihua.chartline.utils.barDataSet
 import com.peihua.chartline.utils.lineDataSet
+import com.peihua.chartline.viewmodel.BarChartStatsViewModel
 import com.peihua.chartline.viewmodel.StatsViewModel
 import com.peihua8858.compose.tools.Items
 import com.peihua8858.tools.model.ResultData
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun BarChartScreen(navController: NavController, viewModel: StatsViewModel = hiltViewModel()) {
+fun BarChartScreen(navController: NavController, viewModel: BarChartStatsViewModel = hiltViewModel()) {
     val refresh = { timeSpan: QuoteTimeSpan, averageItem: RollingAverage ->
         viewModel.fetchStatsDetail(timeSpan, averageItem)
     }
@@ -102,7 +105,7 @@ fun BarChartScreen(navController: NavController, viewModel: StatsViewModel = hil
                 modifier = Modifier,
                 timeSpan = viewModel.timeSpan,
                 averageItem = viewModel.averageItem,
-                state = viewModel.state.value,
+                state = viewModel.barState.value,
                 refresh = refresh
             )
         }
@@ -115,7 +118,7 @@ private fun LineChartContent(
     modifier: Modifier = Modifier,
     timeSpan: QuoteTimeSpan,
     averageItem: RollingAverage,
-    state: ResultData<StatsDetail>,
+    state: ResultData<StatsDetail<BarEntry>>,
     refresh: (timeSpan: QuoteTimeSpan, averageItem: RollingAverage) -> Unit,
 ) {
     val context = LocalContext.current
@@ -129,7 +132,7 @@ private fun LineChartContent(
                     modifier = Modifier
                         .fillMaxWidth()
                         .padding(start = 32.dp, end = 32.dp),
-                    data = BarData(state.data.lineDataSet(context))
+                    data = BarData(state.data.barDataSet(context))
                 )
             }
 

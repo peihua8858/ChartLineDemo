@@ -10,8 +10,8 @@ import com.github.mikephil.charting.data.Entry
 import com.peihua.chartline.enums.QuoteTimeSpan
 import com.peihua.chartline.enums.RollingAverage
 import com.peihua.chartline.model.StatsDetail
+import com.peihua.chartline.model.StatsItem
 import com.peihua.chartline.repository.StatsRepository
-import com.peihua.chartline.utils.convertToEntry
 import com.peihua.chartline.utils.convertToStatsDetail
 import com.peihua8858.tools.model.ResultData
 import com.peihua8858.tools.model.request
@@ -19,20 +19,24 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 
 @HiltViewModel
-class StatsViewModel @Inject constructor(val repository: StatsRepository) : ViewModel() {
-    private val _state = mutableStateOf<ResultData<StatsDetail<Entry>>>(ResultData.Initialize())
+class BarChartStatsViewModel @Inject constructor(val repository: StatsRepository) : ViewModel() {
+
+    private val _barState = mutableStateOf<ResultData<StatsDetail<BarEntry>>>(ResultData.Initialize())
     var timeSpan by mutableStateOf(QuoteTimeSpan.DAY)
     var averageItem by mutableStateOf(RollingAverage.EIGHT_HOURS)
-    val state: State<ResultData<StatsDetail<Entry>>> = _state
-
+    val barState: State<ResultData<StatsDetail<BarEntry>>> = _barState
     fun fetchStatsDetail(timeSpan: QuoteTimeSpan, rollingAverage: RollingAverage) {
         this.timeSpan = timeSpan
         averageItem = rollingAverage
-        request(_state) {
+        request(_barState) {
             convertToStatsDetail(
                 repository.transactionsPerSecond(timeSpan.value, rollingAverage.value),
-                timeSpan, rollingAverage, ::convertToEntry
+                timeSpan, rollingAverage, ::convertToBarEntry
+
             )
         }
     }
+
+    internal fun convertToBarEntry(item: StatsItem): BarEntry =
+        BarEntry(item.timestamp.toFloat(), item.transactionsPerSecond.toFloat())
 }

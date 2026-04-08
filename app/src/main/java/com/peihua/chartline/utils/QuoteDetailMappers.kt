@@ -40,11 +40,12 @@ import com.peihua.chartline.model.StatsResponse
 internal fun convertToEntry(item: StatsItem): Entry =
     Entry(item.timestamp.toFloat(), item.transactionsPerSecond.toFloat())
 
-internal fun convertToStatsDetail(
+internal fun <T> convertToStatsDetail(
     response: StatsResponse,
     timeSpan: QuoteTimeSpan,
-    rollingAverage: RollingAverage
-): StatsDetail {
+    rollingAverage: RollingAverage,
+    convert: (item: StatsItem) -> T
+): StatsDetail<T> {
     val transactions = response.values.map { it.transactionsPerSecond }
     val maxTransaction = transactions.maxOrNull().orZero()
 
@@ -56,6 +57,6 @@ internal fun convertToStatsDetail(
         maxTransaction = maxTransaction,
         timeSpan = timeSpan,
         rollingAverage = rollingAverage,
-        transactionsEntries = response.values.map { convertToEntry(it) }
+        transactionsEntries = response.values.map { convert(it) }
     )
 }

@@ -26,7 +26,7 @@ data class StatsItem(
     @Json(name = "y") val transactionsPerSecond: Double
 )
 
-data class StatsDetail(
+data class StatsDetail<T>(
     val title: String,
     val unit: String,
     val period: String,
@@ -34,12 +34,12 @@ data class StatsDetail(
     val maxTransaction: Double,
     val timeSpan: QuoteTimeSpan,
     val rollingAverage: RollingAverage,
-    val transactionsEntries: List<Entry>,
+    val transactionsEntries: List<T>,
 ) {
     val stats: Stats get() = Stats(title, unit, period, description)
 
-    val detail: Detail
-        get() = Detail(
+    val detail: Detail<T>
+        get() = Detail<T>(
             maxTransaction,
             timeSpan,
             rollingAverage,
@@ -55,10 +55,10 @@ data class StatsDetail(
         fun string(): String = "$title: $unit in $period"
     }
 
-    data class Detail(
+    data class Detail<T>(
         val maxTransaction: Double,
         val timeSpan: QuoteTimeSpan,
         val rollingAverage: RollingAverage,
-        val transactionsEntries: List<Entry>,
+        val transactionsEntries: List<T>,
     )
 }

@@ -1,4 +1,4 @@
-package com.peihua.chartline.screen
+package com.peihua.chartline.screen.mpChart
 
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
@@ -23,6 +23,7 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import androidx.navigation.NavController
+import com.github.mikephil.charting.data.Entry
 import com.github.mikephil.charting.data.LineData
 import com.peihua.chartline.component.ErrorView
 import com.peihua.chartline.component.LineChart
@@ -113,7 +114,7 @@ private fun LineChartContent(
     modifier: Modifier = Modifier,
     timeSpan: QuoteTimeSpan,
     averageItem: RollingAverage,
-    state: ResultData<StatsDetail>,
+    state: ResultData<StatsDetail<Entry>>,
     refresh: (timeSpan: QuoteTimeSpan, averageItem: RollingAverage) -> Unit,
 ) {
     val context = LocalContext.current

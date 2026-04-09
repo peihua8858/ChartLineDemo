@@ -50,7 +50,7 @@ fun AABarChartScreen(navController: NavController, viewModel: BarChartStatsViewM
         }
     }
     Toolbar(
-        title = "ChartLine",
+        title = "AA Android Bar Chart",
         colors = TopAppBarDefaults.topAppBarColors(containerColor = Color.LightGray),
         navigateUp = { navController.popBackStack() }
     ) {
@@ -165,7 +165,7 @@ private fun StatsDetail<BarEntry>.aaCharModelLineData(context: Context): AAChart
     }
     return configureBasicOptions()
         .backgroundColor("#FFFFFF")
-        .chartType(AAChartType.Column)
+        .chartType(AAChartType.Bar)
         .zoomType(AAChartZoomType.XY)
         .inverted(false)
         .stacking(AAChartStackingType.Normal)

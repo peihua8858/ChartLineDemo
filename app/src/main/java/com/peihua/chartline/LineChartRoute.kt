@@ -9,5 +9,6 @@ sealed class LineChartRoute(val value: String) {
     object BarChart: LineChartRoute("BarChart")
     object AAChartCore: LineChartRoute("AAChartCore")
     object AALineChart: LineChartRoute("AALineChart")
+    object AAColumnChart: LineChartRoute("AAColumnChart")
     object AABarChart: LineChartRoute("AABarChart")
 }

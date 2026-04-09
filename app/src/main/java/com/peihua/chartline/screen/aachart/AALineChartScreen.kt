@@ -50,7 +50,7 @@ fun AALineChartScreen(navController: NavController, viewModel: StatsViewModel = 
         viewModel.fetchStatsDetail(timeSpan, averageItem)
     }
     Toolbar(
-        title = "ChartLine",
+        title = "AA Android Line Chart",
         colors = TopAppBarDefaults.topAppBarColors(containerColor = Color.LightGray),
         navigateUp = { navController.popBackStack() }
     ) {

@@ -44,7 +44,7 @@ fun LineChartScreen(navController: NavController, viewModel: StatsViewModel = hi
         viewModel.fetchStatsDetail(timeSpan, averageItem)
     }
     Toolbar(
-        title = "ChartLine",
+        title = "MP Android Line Chart",
         colors = TopAppBarDefaults.topAppBarColors(containerColor = Color.LightGray),
         navigateUp = { navController.popBackStack() }
     ) {

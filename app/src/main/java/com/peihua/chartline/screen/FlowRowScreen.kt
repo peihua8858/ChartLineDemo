@@ -23,11 +23,16 @@ import com.peihua8858.compose.tools.Items
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun <T : Functions> FlowRowScreen(navController: NavController, entries: List<T>) {
+fun <T : Functions> FlowRowScreen(
+    navController: NavController, title: String = "Chart Line", entries: List<T>,
+    navigateUp: () -> Unit = {
+        navController.popBackStack()
+    },
+) {
     Toolbar(
-        title = "ChartLine",
+        title = title,
         colors = TopAppBarDefaults.topAppBarColors(containerColor = Color.LightGray),
-        navigateUp = { navController.popBackStack() }
+        navigateUp = navigateUp
     ) {
         FlowRow(
             modifier = Modifier

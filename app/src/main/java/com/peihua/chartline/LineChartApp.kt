@@ -9,6 +9,9 @@ import com.peihua.chartline.screen.FlowRowScreen
 import com.peihua.chartline.screen.mpChart.LineChartScreen
 import com.peihua.chartline.screen.QuoteScreen
 import com.peihua.chartline.screen.SplashScreen
+import com.peihua.chartline.screen.aachart.AABarChartScreen
+import com.peihua.chartline.screen.aachart.AAChartFunctions
+import com.peihua.chartline.screen.aachart.AALineChartScreen
 import com.peihua.chartline.screen.mpChart.BarChartScreen
 import com.peihua.chartline.screen.mpChart.MPFunctions
 
@@ -33,6 +36,15 @@ fun LineChartApp() {
         }
         composable(route = LineChartRoute.BarChart.value) {
             BarChartScreen(navController = navController)
+        }
+        composable(route = LineChartRoute.AAChartCore.value) {
+            FlowRowScreen(navController, AAChartFunctions.entries)
+        }
+        composable(route = LineChartRoute.AALineChart.value) {
+            AALineChartScreen(navController)
+        }
+        composable(route = LineChartRoute.AABarChart.value) {
+            AABarChartScreen(navController)
         }
     }
 }

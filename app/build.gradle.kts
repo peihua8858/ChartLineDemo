@@ -41,7 +41,8 @@ android {
 
 dependencies {
     implementation("com.squareup.moshi:moshi-kotlin:1.15.2")
-    implementation("com.github.PhilJay:MPAndroidChart:v3.1.0")
+    implementation("com.github.peihua8858:MPAndroidChart:3.1.1")
+    implementation ("com.github.AAChartModel:AAChartCore-Kotlin:8.2.1")
     implementation("com.github.peihua8858:ComposeUtils:1.0.2")
     implementation(libs.androidx.compose.navigation)
 //    implementation("androidx.navigation:navigation-compose:2.9.7")

@@ -9,4 +9,5 @@ interface  Functions {
 
 enum class MainFunctions(override val nickName: String, override val value: String) : Functions {
     AP_CHART("MP Android Chart", LineChartRoute.MpChart.value),
+    AAChartCore("AAChartCore", LineChartRoute.AAChartCore.value)
 }

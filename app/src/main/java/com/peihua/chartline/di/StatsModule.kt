@@ -1,5 +1,7 @@
 package com.peihua.chartline.di
 
+import com.peihua.chartline.repository.MpBarChartRepository
+import com.peihua.chartline.repository.MpBarChartRepositoryImpl
 import com.peihua.chartline.repository.StatsRepository
 import com.peihua.chartline.repository.StatsRepositoryImpl
 import com.peihua.chartline.service.StatsService
@@ -16,7 +18,8 @@ abstract class StatsModule {
 
     @Binds
     abstract fun bindStatsRepository(impl: StatsRepositoryImpl): StatsRepository
-
+    @Binds
+    abstract fun bindMpBarChartRepository(impl: MpBarChartRepositoryImpl): MpBarChartRepository
     companion object {
         @Provides
         fun provideStatsService(retrofit: Retrofit): StatsService =

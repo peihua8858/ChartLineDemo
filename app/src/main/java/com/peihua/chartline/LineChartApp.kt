@@ -14,8 +14,13 @@ import com.peihua.chartline.screen.aachart.AABarChartScreen
 import com.peihua.chartline.screen.aachart.AAChartFunctions
 import com.peihua.chartline.screen.aachart.AAColumnChartScreen
 import com.peihua.chartline.screen.aachart.AALineChartScreen
+import com.peihua.chartline.screen.anychart.AnyChartBarScreen
+import com.peihua.chartline.screen.anychart.AnyChartColumnScreen
+import com.peihua.chartline.screen.anychart.AnyChartFunctions
+import com.peihua.chartline.screen.anychart.AnyChartLineScreen
 import com.peihua.chartline.screen.mpChart.BarChartScreen
 import com.peihua.chartline.screen.mpChart.MPFunctions
+import com.peihua.chartline.screen.mpChart.PieChartScreen
 import com.peihua8858.tools.utils.finish
 
 @Composable
@@ -57,6 +62,9 @@ fun LineChartApp() {
         composable(route = LineChartRoute.BarChart.value) {
             BarChartScreen(navController = navController)
         }
+        composable(route = LineChartRoute.PieChart.value) {
+            PieChartScreen(navController)
+        }
         composable(route = LineChartRoute.AAChartCore.value) {
             FlowRowScreen(navController,"AA Chart Core", AAChartFunctions.entries)
         }
@@ -68,6 +76,18 @@ fun LineChartApp() {
         }
         composable(route = LineChartRoute.AABarChart.value) {
             AABarChartScreen(navController)
+        }
+        composable(route = LineChartRoute.AnyChart.value) {
+            FlowRowScreen(navController,"Any Chart", AnyChartFunctions.entries)
+        }
+        composable(route = LineChartRoute.AnyChartLine.value) {
+            AnyChartLineScreen(navController)
+        }
+        composable(route = LineChartRoute.AnyChartColumn.value) {
+            AnyChartColumnScreen(navController)
+        }
+        composable(route = LineChartRoute.AnyChartBar.value) {
+            AnyChartBarScreen(navController)
         }
     }
 }

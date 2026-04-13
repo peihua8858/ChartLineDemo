@@ -1,9 +1,11 @@
 package com.peihua.chartline.model
+
 import com.github.mikephil.charting.data.Entry
 import com.peihua.chartline.enums.QuoteTimeSpan
 import com.peihua.chartline.enums.RollingAverage
 import com.squareup.moshi.Json
 import com.squareup.moshi.JsonClass
+
 @JsonClass(generateAdapter = true)
 data class StatsResponse(
     @Json(name = "description")
@@ -17,14 +19,24 @@ data class StatsResponse(
     @Json(name = "unit")
     val unit: String,
     @Json(name = "values")
-    val values: List<StatsItem>
+    val values: List<StatsItem> = mutableListOf(),
+    @Json(name = "labels")
+    val labels: List<ValuesItem> = mutableListOf(),
 )
 
 @JsonClass(generateAdapter = true)
 data class StatsItem(
     @Json(name = "x") val timestamp: Long,
-    @Json(name = "y") val transactionsPerSecond: Double
-)
+    @Json(name = "y") val transactionsPerSecond: Double,
+
+    )
+
+@JsonClass(generateAdapter = true)
+data class ValuesItem(
+    @Json(name = "value") val value: Double,
+    @Json(name = "label") val label: String,
+
+    )
 
 data class StatsDetail<T>(
     val title: String,

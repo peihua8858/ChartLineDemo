@@ -7,8 +7,13 @@ sealed class LineChartRoute(val value: String) {
     object MpChart : LineChartRoute("MpChart")
     object LineChart : LineChartRoute("LineChart")
     object BarChart: LineChartRoute("BarChart")
+    object PieChart: LineChartRoute("PieChart")
     object AAChartCore: LineChartRoute("AAChartCore")
     object AALineChart: LineChartRoute("AALineChart")
     object AAColumnChart: LineChartRoute("AAColumnChart")
     object AABarChart: LineChartRoute("AABarChart")
+    object AnyChart: LineChartRoute("AnyChart")
+    object AnyChartLine: LineChartRoute("AnyChartLine")
+    object AnyChartColumn: LineChartRoute("AnyChartColumn")
+    object AnyChartBar: LineChartRoute("AnyChartBar")
 }

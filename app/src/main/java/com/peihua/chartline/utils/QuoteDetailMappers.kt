@@ -6,6 +6,7 @@ import com.peihua.chartline.enums.RollingAverage
 import com.peihua.chartline.model.StatsDetail
 import com.peihua.chartline.model.StatsItem
 import com.peihua.chartline.model.StatsResponse
+import com.peihua.chartline.model.ValuesItem
 
 //internal fun convertToQuoteDetail(
 //    response: QuotePriceChartResponse,
@@ -58,5 +59,26 @@ internal fun <T> convertToStatsDetail(
         timeSpan = timeSpan,
         rollingAverage = rollingAverage,
         transactionsEntries = response.values.map { convert(it) }
+    )
+}
+
+internal fun <T> convertToStatsDetailByLabels(
+    response: StatsResponse,
+    timeSpan: QuoteTimeSpan,
+    rollingAverage: RollingAverage,
+    convert: (item: ValuesItem) -> T
+): StatsDetail<T> {
+    val transactions = response.values.map { it.transactionsPerSecond }
+    val maxTransaction = transactions.maxOrNull().orZero()
+
+    return StatsDetail(
+        title = response.name,
+        unit = response.unit,
+        period = response.period,
+        description = response.description,
+        maxTransaction = maxTransaction,
+        timeSpan = timeSpan,
+        rollingAverage = rollingAverage,
+        transactionsEntries = response.labels.map { convert(it) }
     )
 }

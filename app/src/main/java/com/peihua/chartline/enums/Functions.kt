@@ -1,13 +1,17 @@
 package com.peihua.chartline.enums
 
 import com.peihua.chartline.LineChartRoute
+import com.peihua.chartline.R
 
-interface  Functions {
+interface Functions {
     val nickName: String
     val value: String
+    val drawableId: Int
+        get() = 0
 }
 
-enum class MainFunctions(override val nickName: String, override val value: String) : Functions {
-    AP_CHART("MP Android Chart", LineChartRoute.MpChart.value),
-    AAChartCore("AA Chart Core", LineChartRoute.AAChartCore.value)
+enum class MainFunctions(override val nickName: String, override val value: String, override val drawableId: Int = 0) : Functions {
+    AP_CHART("MP Android Chart", LineChartRoute.MpChart.value, R.mipmap.mp_chart_icon),
+    AAChartCore("AA Chart Core", LineChartRoute.AAChartCore.value, R.mipmap.ic_launcher_round),
+    ANY_CHART("Any Chart", LineChartRoute.AnyChart.value, R.mipmap.ic_any_chart),
 }

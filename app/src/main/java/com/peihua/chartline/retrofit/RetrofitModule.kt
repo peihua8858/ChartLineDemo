@@ -1,7 +1,7 @@
 package com.peihua.chartline.retrofit
 
 import android.util.Log
-import com.squareup.moshi.Moshi
+import com.google.gson.Gson
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -9,7 +9,7 @@ import dagger.hilt.components.SingletonComponent
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
-import retrofit2.converter.moshi.MoshiConverterFactory
+import retrofit2.converter.gson.GsonConverterFactory
 import javax.inject.Singleton
 
 @Module
@@ -22,7 +22,7 @@ object RetrofitModule {
     fun provideRetrofitService(
         baseUrl: String,
         client: OkHttpClient,
-        converterFactory: MoshiConverterFactory
+        converterFactory: GsonConverterFactory
     ): Retrofit {
         return Retrofit.Builder().baseUrl(baseUrl).client(client)
             .addConverterFactory(converterFactory).build()
@@ -47,11 +47,11 @@ object RetrofitModule {
 
     @Singleton
     @Provides
-    fun provideMoshiConverterFactory(moshi: Moshi): MoshiConverterFactory {
-        return MoshiConverterFactory.create(moshi)
+    fun provideGsonConverterFactory(gson: Gson): GsonConverterFactory {
+        return GsonConverterFactory.create(gson)
     }
 
     @Singleton
     @Provides
-    fun provideMoshi(): Moshi = Moshi.Builder().build()
+    fun provideGson(): Gson = Gson()
 }

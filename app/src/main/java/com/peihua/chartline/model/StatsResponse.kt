@@ -1,40 +1,35 @@
 package com.peihua.chartline.model
 
-import com.github.mikephil.charting.data.Entry
+import com.google.gson.annotations.SerializedName
 import com.peihua.chartline.enums.QuoteTimeSpan
 import com.peihua.chartline.enums.RollingAverage
-import com.squareup.moshi.Json
-import com.squareup.moshi.JsonClass
 
-@JsonClass(generateAdapter = true)
 data class StatsResponse(
-    @Json(name = "description")
+    @SerializedName(value = "description")
     val description: String,
-    @Json(name = "name")
+    @SerializedName(value = "name")
     val name: String,
-    @Json(name = "period")
+    @SerializedName(value = "period")
     val period: String,
-    @Json(name = "status")
+    @SerializedName(value = "status")
     val status: String,
-    @Json(name = "unit")
+    @SerializedName(value = "unit")
     val unit: String,
-    @Json(name = "values")
+    @SerializedName(value = "values")
     val values: List<StatsItem> = mutableListOf(),
-    @Json(name = "labels")
+    @SerializedName(value = "labels")
     val labels: List<ValuesItem> = mutableListOf(),
 )
 
-@JsonClass(generateAdapter = true)
 data class StatsItem(
-    @Json(name = "x") val timestamp: Long,
-    @Json(name = "y") val transactionsPerSecond: Double,
+    @SerializedName(value = "x") val timestamp: Long,
+    @SerializedName(value = "y") val transactionsPerSecond: Double,
 
     )
 
-@JsonClass(generateAdapter = true)
 data class ValuesItem(
-    @Json(name = "value") val value: Double,
-    @Json(name = "label") val label: String,
+    @SerializedName(value = "value") val value: Double,
+    @SerializedName(value = "label") val label: String,
 
     )
 

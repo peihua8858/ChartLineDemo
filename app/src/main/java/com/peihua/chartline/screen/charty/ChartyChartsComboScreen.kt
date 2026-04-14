@@ -1,8 +1,9 @@
-package com.peihua.chartline.screen.mpChart
+package com.peihua.chartline.screen.charty
 
+import android.content.Context
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.padding
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -10,18 +11,18 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
 import com.github.mikephil.charting.data.Entry
-import com.github.mikephil.charting.data.LineData
+import com.himanshoe.charty.combo.ComboChart
+import com.himanshoe.charty.combo.data.ComboChartData
 import com.peihua.chartline.component.ErrorView
-import com.peihua.chartline.component.LineChart
 import com.peihua.chartline.component.LoadingView
 import com.peihua.chartline.enums.QuoteTimeSpan
 import com.peihua.chartline.enums.RollingAverage
 import com.peihua.chartline.model.StatsDetail
-import com.peihua.chartline.utils.lineDataSet
+import com.peihua.chartline.utils.format
 import com.peihua8858.tools.model.ResultData
 
 @Composable
- fun LineChartContent(
+fun ChartyChartsComboContent(
     modifier: Modifier = Modifier,
     timeSpan: QuoteTimeSpan,
     averageItem: RollingAverage,
@@ -30,19 +31,18 @@ import com.peihua8858.tools.model.ResultData
 ) {
     val context = LocalContext.current
     Box(
-        modifier = modifier.fillMaxSize(),
+        modifier = modifier
+            .fillMaxSize()
+            .padding(start = 32.dp, end = 32.dp),
         contentAlignment = Alignment.TopCenter
     ) {
         when (state) {
             is ResultData.Success -> {
-                LineChart(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .padding(start = 32.dp, end = 32.dp),
-                    data = LineData(state.data.lineDataSet(context)).apply {
-                        setDrawValues(false)
-                    }
-                )
+                ComboChart(
+                    modifier = Modifier.heightIn(min = 400.dp),
+                    data = {
+                    state.data.chartyChartModelComboData(context)
+                })
             }
 
             is ResultData.Failure -> {
@@ -62,4 +62,14 @@ import com.peihua8858.tools.model.ResultData
         }
     }
 
+}
+
+private fun StatsDetail<Entry>.chartyChartModelComboData(context: Context): List<ComboChartData> {
+    val transactionsEntries = this.transactionsEntries
+    val values = mutableListOf<ComboChartData>()
+    transactionsEntries.forEach {
+        val time = it.x.format("HH:mm:ss")
+        values.add(ComboChartData(time, it.y, it.y))
+    }
+    return values
 }

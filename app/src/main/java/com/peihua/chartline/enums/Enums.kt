@@ -17,3 +17,7 @@ enum class QuoteTimeSpan(val valueName: String, val value: String) {
     THREE_MONTHS("90天", "90days"),
     ONE_YEAR("365天", "365days"),
 }
+
+enum class MarketInformationChangeStatus {
+    POSITIVE, NEGATIVE
+}

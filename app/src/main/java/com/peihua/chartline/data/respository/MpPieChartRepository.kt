@@ -1,4 +1,4 @@
-package com.peihua.chartline.repository
+package com.peihua.chartline.data.respository
 
 import com.peihua.chartline.model.StatsResponse
 import com.peihua.chartline.qualifier.IoDispatcher
@@ -12,13 +12,11 @@ interface MpPieChartRepository {
 }
 
 class MpPieChartRepositoryImpl @Inject constructor(
-    @IoDispatcher
-    private val ioDispatcher: CoroutineDispatcher,
     private val remoteDataSource: MpPieChartRemoteDataSource,
 ) : MpPieChartRepository {
     override suspend fun transactions(
         count: Int, range: Int,
-    ): StatsResponse = withContext(ioDispatcher) {
-        remoteDataSource.transactions(count, range)
+    ): StatsResponse {
+        return remoteDataSource.transactions(count, range)
     }
 }

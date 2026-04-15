@@ -1,4 +1,4 @@
-package com.peihua.chartline.service
+package com.peihua.chartline.data.remote.serveice
 
 import com.peihua.chartline.model.StatsResponse
 import retrofit2.http.GET

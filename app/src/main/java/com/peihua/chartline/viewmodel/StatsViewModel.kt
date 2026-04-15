@@ -5,12 +5,11 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
-import com.github.mikephil.charting.data.BarEntry
 import com.github.mikephil.charting.data.Entry
 import com.peihua.chartline.enums.QuoteTimeSpan
 import com.peihua.chartline.enums.RollingAverage
 import com.peihua.chartline.model.StatsDetail
-import com.peihua.chartline.repository.StatsRepository
+import com.peihua.chartline.data.respository.StatsRepository
 import com.peihua.chartline.utils.convertToEntry
 import com.peihua.chartline.utils.convertToStatsDetail
 import com.peihua8858.tools.model.ResultData

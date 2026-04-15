@@ -1,4 +1,4 @@
-package com.peihua.chartline.retrofit
+package com.peihua.chartline.di
 
 import android.util.Log
 import com.google.gson.Gson

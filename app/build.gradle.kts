@@ -72,6 +72,7 @@ dependencies {
     implementation(libs.androidx.ui.graphics)
     implementation(libs.androidx.ui.tooling.preview)
     implementation(libs.androidx.material3)
+    implementation(libs.androidx.compose.constraintlayout)
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
@@ -95,4 +96,8 @@ dependencies {
     implementation("com.patrykandpatrick.vico:compose-m3:3.1.0")
     implementation("com.himanshoe:charty:3.0.0-rc01")
     implementation("co.yml:ycharts:2.1.0")
+    implementation ("io.github.ehsannarmani:compose-charts:0.2.5")
+    implementation("io.github.thechance101:chart:1.1.0")
+    implementation("com.github.wangyiqian:StockChart:1.1.16")
+    implementation("com.github.peihua8858.compose-multiplatform-charts:charts:1.0.0-alpha")
 }

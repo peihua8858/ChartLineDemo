@@ -13,6 +13,12 @@ import com.peihua.chartline.screen.aachart.AABarChartScreen
 import com.peihua.chartline.screen.aachart.AAChartFunctions
 import com.peihua.chartline.screen.aachart.AAColumnChartScreen
 import com.peihua.chartline.screen.aachart.AALineChartContent
+import com.peihua.chartline.screen.aaychart.AAYChartBarContent
+import com.peihua.chartline.screen.aaychart.AAYChartColumnContent
+import com.peihua.chartline.screen.aaychart.AAYChartComboContent
+import com.peihua.chartline.screen.aaychart.AAYChartFunctions
+import com.peihua.chartline.screen.aaychart.AAYChartLineContent
+import com.peihua.chartline.screen.aaychart.AAYChartRadarContent
 import com.peihua.chartline.screen.anychart.AnyChartBarContent
 import com.peihua.chartline.screen.anychart.AnyChartColumnContent
 import com.peihua.chartline.screen.anychart.AnyChartFunctions
@@ -23,6 +29,12 @@ import com.peihua.chartline.screen.charty.ChartyChartsComboContent
 import com.peihua.chartline.screen.charty.ChartyChartsFunctions
 import com.peihua.chartline.screen.charty.ChartyChartsLineContent
 import com.peihua.chartline.screen.charty.ChartyChartsRadarContent
+import com.peihua.chartline.screen.compose_charts.ComposeChartBarContent
+import com.peihua.chartline.screen.compose_charts.ComposeChartColumnContent
+import com.peihua.chartline.screen.compose_charts.ComposeChartComboContent
+import com.peihua.chartline.screen.compose_charts.ComposeChartLineContent
+import com.peihua.chartline.screen.compose_charts.ComposeChartRadarContent
+import com.peihua.chartline.screen.compose_charts.ComposeChartsFunctions
 import com.peihua.chartline.screen.hdcharts.HdChartsBarContent
 import com.peihua.chartline.screen.hdcharts.HdChartsColumnContent
 import com.peihua.chartline.screen.hdcharts.HdChartsFunctions
@@ -221,6 +233,62 @@ fun LineChartApp() {
         composable(route = LineChartRoute.YChartsCombo.value) {
             BaseStatsDataScreen(navController, title = "YCharts Android Combo Chart") { modifier, timeSpan, averageItem, state, refresh ->
                 YChartsComboContent(modifier, timeSpan, averageItem, state, refresh)
+            }
+        }
+        composable(route = LineChartRoute.ComposeCharts.value) {
+            FlowRowScreen(navController, "Compose Charts", ComposeChartsFunctions.entries)
+        }
+        composable(route = LineChartRoute.ComposeChartsLine.value) {
+            BaseStatsDataScreen(navController, title = "Compose Charts Line Chart") { modifier, timeSpan, averageItem, state, refresh ->
+                ComposeChartLineContent(modifier, timeSpan, averageItem, state, refresh)
+            }
+        }
+        composable(route = LineChartRoute.ComposeChartsBar.value) {
+            BaseStatsDataScreen(navController, title = "Compose Charts Bar Chart") { modifier, timeSpan, averageItem, state, refresh ->
+                ComposeChartBarContent(modifier, timeSpan, averageItem, state, refresh)
+            }
+        }
+        composable(route = LineChartRoute.ComposeChartsColumn.value) {
+            BaseStatsDataScreen(navController, title = "Compose Charts Column Chart") { modifier, timeSpan, averageItem, state, refresh ->
+                ComposeChartColumnContent(modifier, timeSpan, averageItem, state, refresh)
+            }
+        }
+        composable(route = LineChartRoute.ComposeChartsCombo.value) {
+            BaseStatsDataScreen(navController, title = "Compose Charts Combo Chart") { modifier, timeSpan, averageItem, state, refresh ->
+                ComposeChartComboContent(modifier, timeSpan, averageItem, state, refresh)
+            }
+        }
+        composable(route = LineChartRoute.ComposeChartsRadar.value) {
+            BaseStatsDataScreen(navController, title = "Compose Charts Radar Chart") { modifier, timeSpan, averageItem, state, refresh ->
+                ComposeChartRadarContent(modifier, timeSpan, averageItem, state, refresh)
+            }
+        }
+        composable(route = LineChartRoute.AAYChart.value) {
+            FlowRowScreen(navController, "AAy Chart", AAYChartFunctions.entries)
+        }
+        composable(route = LineChartRoute.AAYChartLine.value) {
+            BaseStatsDataScreen(navController, title = "AAY Android Line Chart") { modifier, timeSpan, averageItem, state, refresh ->
+                AAYChartLineContent(modifier, timeSpan, averageItem, state, refresh)
+            }
+        }
+        composable(route = LineChartRoute.AAYChartColumn.value) {
+            BaseStatsDataScreen(navController, title = "AAY Android Column Chart") { modifier, timeSpan, averageItem, state, refresh ->
+                AAYChartColumnContent(modifier, timeSpan, averageItem, state, refresh)
+            }
+        }
+        composable(route = LineChartRoute.AAYChartBar.value) {
+            BaseStatsDataScreen(navController, title = "AAY Android Bar Chart") { modifier, timeSpan, averageItem, state, refresh ->
+                AAYChartBarContent(modifier, timeSpan, averageItem, state, refresh)
+            }
+        }
+        composable(route = LineChartRoute.AAYChartCombo.value) {
+            BaseStatsDataScreen(navController, title = "AAY Android Combo Chart") { modifier, timeSpan, averageItem, state, refresh ->
+                AAYChartComboContent(modifier, timeSpan, averageItem, state, refresh)
+            }
+        }
+        composable(route = LineChartRoute.AAYChartRadar.value) {
+            BaseStatsDataScreen(navController, title = "AAY Android Radar Chart") { modifier, timeSpan, averageItem, state, refresh ->
+                AAYChartRadarContent(modifier, timeSpan, averageItem, state, refresh)
             }
         }
 

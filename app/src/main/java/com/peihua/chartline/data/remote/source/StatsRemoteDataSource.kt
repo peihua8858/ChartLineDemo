@@ -1,7 +1,7 @@
-package com.peihua.chartline.source
+package com.peihua.chartline.data.remote.source
 
 import com.peihua.chartline.model.StatsResponse
-import com.peihua.chartline.service.StatsService
+import com.peihua.chartline.data.remote.serveice.StatsService
 import javax.inject.Inject
 
 class StatsRemoteDataSource @Inject constructor(private val statsService: StatsService) {

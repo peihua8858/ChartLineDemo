@@ -13,6 +13,8 @@ ksp = "2.3.6"
 navigation = "2.9.7"
 materialIconsExtended = "1.7.8"
 coilComposeVersion = "3.4.0"
+constraintLayoutCompose = "1.1.1"
+androidx-room = "2.7.2"
 [libraries]
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
 junit = { group = "junit", name = "junit", version.ref = "junit" }
@@ -30,6 +32,11 @@ androidx-ui-test-junit4 = { group = "androidx.compose.ui", name = "ui-test-junit
 androidx-material3 = { group = "androidx.compose.material3", name = "material3" }
 androidx-material-icons-extended = { group = "androidx.compose.material", name = "material-icons-extended", version.ref = "materialIconsExtended" }
 androidx-compose-navigation = { module = "androidx.navigation:navigation-compose", version.ref = "navigation" }
+androidx-compose-constraintlayout = { module = "androidx.constraintlayout:constraintlayout-compose", version.ref = "constraintLayoutCompose" }
+androidx-room-compiler = { group = "androidx.room", name = "room-compiler", version.ref = "androidx-room" }
+androidx-room-runtime = { group = "androidx.room", name = "room-runtime", version.ref = "androidx-room" }
+androidx-room-paging = { group = "androidx.room", name = "room-paging", version.ref = "androidx-room" }
+androidx-room-ktx = { module = "androidx.room:room-ktx", version.ref = "androidx-room" }
 coil3-compose = { module = "io.coil-kt.coil3:coil-compose", version.ref = "coilComposeVersion" }
 coil3-okhttp = { module = "io.coil-kt.coil3:coil-network-okhttp", version.ref = "coilComposeVersion" }
 [plugins]
@@ -39,4 +46,5 @@ kotlin-compose = { id = "org.jetbrains.kotlin.plugin.compose", version.ref = "ko
 dagger-hilt = { id = "com.google.dagger.hilt.android", version.ref = "daggerHilt" }
 google-ksp = { id = "com.google.devtools.ksp", version.ref = "ksp" }
 legacy-kapt = { id = "com.android.legacy-kapt", version.ref = "agp" }
+androidx-room = { id = "androidx.room", version.ref = "androidx-room" }
 

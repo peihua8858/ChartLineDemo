@@ -1,13 +1,9 @@
 package com.peihua.chartline.screen.ycharts
 
-import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.heightIn
-import androidx.compose.foundation.layout.padding
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.remember
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
@@ -26,13 +22,8 @@ import com.patrykandpatrick.vico.compose.cartesian.layer.rememberLineCartesianLa
 import com.patrykandpatrick.vico.compose.cartesian.rememberCartesianChart
 import com.patrykandpatrick.vico.compose.common.Fill
 import com.patrykandpatrick.vico.compose.common.data.ExtraStore
-import com.peihua.chartline.component.ErrorView
-import com.peihua.chartline.component.LoadingView
-import com.peihua.chartline.enums.QuoteTimeSpan
-import com.peihua.chartline.enums.RollingAverage
 import com.peihua.chartline.model.StatsDetail
 import com.peihua.chartline.utils.format
-import com.peihua8858.tools.model.ResultData
 
 
 private val BottomAxisLabelKey = ExtraStore.Key<List<String>>()
@@ -43,77 +34,47 @@ private val BottomAxisValueFormatter = CartesianValueFormatter { context, x, _ -
 @Composable
 fun YChartsComboContent(
     modifier: Modifier = Modifier,
-    timeSpan: QuoteTimeSpan,
-    averageItem: RollingAverage,
-    state: ResultData<StatsDetail<Entry>>,
-    refresh: (timeSpan: QuoteTimeSpan, averageItem: RollingAverage) -> Unit,
+    data: StatsDetail<Entry>,
 ) {
-    Box(
-        modifier = modifier
-            .fillMaxSize()
-            .padding(start = 32.dp, end = 32.dp),
-        contentAlignment = Alignment.TopCenter
-    ) {
-        when (state) {
-            is ResultData.Success -> {
-                val modelProducer = remember { CartesianChartModelProducer() }
-                CartesianChartHost(
-                    modifier = Modifier.heightIn(min = 400.dp),
-                    chart =
-                        rememberCartesianChart(
-                            rememberColumnCartesianLayer(),
-                            rememberLineCartesianLayer(
-                                LineCartesianLayer.LineProvider.series(
-                                    LineCartesianLayer.Line(LineCartesianLayer.LineFill.single(Fill(Color(0xffee2b2b))))
-                                )
-                            ),
-                            startAxis = VerticalAxis.rememberStart(
-                                size = BaseAxis.Size.Fixed(100.dp)
-                            ),
-                            bottomAxis = HorizontalAxis.rememberBottom(
-                                itemPlacer = remember { HorizontalAxis.ItemPlacer.segmented() },
-                                valueFormatter = BottomAxisValueFormatter,
-                                size = BaseAxis.Size.Fixed(80.dp)
-                            ),
-                        ),
-                    modelProducer = modelProducer,
-                )
-                LaunchedEffect(Unit) {
-                    val transactionsEntries = state.data.transactionsEntries
-                    val values = mutableListOf<Float>()
-                    val labels = mutableListOf<String>()
-                    transactionsEntries.forEach {
-                        val time = it.x.format("HH:mm:ss")
-                        values.add(it.y)
-                        labels.add(time)
-                    }
-                    modelProducer.runTransaction {
-                        lineSeries {
-                            series(values)
-                        }
-                        columnSeries {
-                            series(values)
-                            extras { it[BottomAxisLabelKey] = labels }
-                        }
-                    }
-                }
+    val modelProducer = remember { CartesianChartModelProducer() }
+    CartesianChartHost(
+        modifier = modifier.heightIn(min = 400.dp),
+        chart =
+            rememberCartesianChart(
+                rememberColumnCartesianLayer(),
+                rememberLineCartesianLayer(
+                    LineCartesianLayer.LineProvider.series(
+                        LineCartesianLayer.Line(LineCartesianLayer.LineFill.single(Fill(Color(0xffee2b2b))))
+                    )
+                ),
+                startAxis = VerticalAxis.rememberStart(
+                    size = BaseAxis.Size.Fixed(100.dp)
+                ),
+                bottomAxis = HorizontalAxis.rememberBottom(
+                    itemPlacer = remember { HorizontalAxis.ItemPlacer.segmented() },
+                    valueFormatter = BottomAxisValueFormatter,
+                    size = BaseAxis.Size.Fixed(80.dp)
+                ),
+            ),
+        modelProducer = modelProducer,
+    )
+    LaunchedEffect(Unit) {
+        val transactionsEntries = data.transactionsEntries
+        val values = mutableListOf<Float>()
+        val labels = mutableListOf<String>()
+        transactionsEntries.forEach {
+            val time = it.x.format("HH:mm:ss")
+            values.add(it.y)
+            labels.add(time)
+        }
+        modelProducer.runTransaction {
+            lineSeries {
+                series(values)
             }
-
-            is ResultData.Failure -> {
-                ErrorView(
-                    retry = {
-                        refresh(timeSpan, averageItem)
-                    })
-            }
-
-            is ResultData.Initialize -> {
-                refresh(timeSpan, averageItem)
-            }
-
-            is ResultData.Starting -> {
-                LoadingView(modifier = Modifier)
+            columnSeries {
+                series(values)
+                extras { it[BottomAxisLabelKey] = labels }
             }
         }
     }
-
 }

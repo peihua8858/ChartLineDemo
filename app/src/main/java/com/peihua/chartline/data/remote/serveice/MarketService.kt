@@ -7,5 +7,9 @@ import retrofit2.http.Query
 interface MarketService {
 
     @GET("charts/market-price")
-    suspend fun fetchMarketPriceChart(@Query("timespan") timespan: String): MarketPriceChartResponse
+    suspend fun fetchMarketPriceChart(
+        @Query("timespan") timespan: String,
+        @Query("rollingAverage")
+        rollingAverage: String,
+    ): MarketPriceChartResponse
 }

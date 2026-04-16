@@ -37,70 +37,40 @@ private val BottomAxisValueFormatter = CartesianValueFormatter { context, x, _ -
 @Composable
 fun YChartsRadarContent(
     modifier: Modifier = Modifier,
-    timeSpan: QuoteTimeSpan,
-    averageItem: RollingAverage,
-    state: ResultData<StatsDetail<Entry>>,
-    refresh: (timeSpan: QuoteTimeSpan, averageItem: RollingAverage) -> Unit,
+    data: StatsDetail<Entry>,
 ) {
-    Box(
-        modifier = modifier
-            .fillMaxSize()
-            .padding(start = 32.dp, end = 32.dp),
-        contentAlignment = Alignment.TopCenter
-    ) {
-        when (state) {
-            is ResultData.Success -> {
-                val modelProducer = remember { CartesianChartModelProducer() }
-                CartesianChartHost(
-                    modifier=Modifier.heightIn(min=400.dp),
-                    chart =
-                        rememberCartesianChart(
-                            rememberColumnCartesianLayer(),
-                            startAxis = VerticalAxis.rememberStart(
-                                size = BaseAxis.Size.Fixed(100.dp)
-                            ),
-                            bottomAxis = HorizontalAxis.rememberBottom(
-                                itemPlacer = remember { HorizontalAxis.ItemPlacer.segmented() },
-                                valueFormatter = BottomAxisValueFormatter,
-                                size = BaseAxis.Size.Fixed(80.dp)
-                            ),
-                        ),
-                    modelProducer = modelProducer,
-                )
-                LaunchedEffect(Unit) {
-                    modelProducer.runTransaction {
-                        columnSeries {
-                            val transactionsEntries = state.data.transactionsEntries
-                            val values = mutableListOf<Float>()
-                            val labels = mutableListOf<String>()
-                            transactionsEntries.forEach {
-                                val time = it.x.format("HH:mm:ss")
-                                values.add(it.y)
-                                labels.add(time)
-                            }
-                            series(values)
-                            extras { it[BottomAxisLabelKey] = labels }
-                        }
-                    }
+    val modelProducer = remember { CartesianChartModelProducer() }
+    CartesianChartHost(
+        modifier = modifier.heightIn(min = 400.dp),
+        chart =
+            rememberCartesianChart(
+                rememberColumnCartesianLayer(),
+                startAxis = VerticalAxis.rememberStart(
+                    size = BaseAxis.Size.Fixed(100.dp)
+                ),
+                bottomAxis = HorizontalAxis.rememberBottom(
+                    itemPlacer = remember { HorizontalAxis.ItemPlacer.segmented() },
+                    valueFormatter = BottomAxisValueFormatter,
+                    size = BaseAxis.Size.Fixed(80.dp)
+                ),
+            ),
+        modelProducer = modelProducer,
+    )
+    LaunchedEffect(Unit) {
+        modelProducer.runTransaction {
+            columnSeries {
+                val transactionsEntries = data.transactionsEntries
+                val values = mutableListOf<Float>()
+                val labels = mutableListOf<String>()
+                transactionsEntries.forEach {
+                    val time = it.x.format("HH:mm:ss")
+                    values.add(it.y)
+                    labels.add(time)
                 }
-            }
-
-            is ResultData.Failure -> {
-                ErrorView(
-                    retry = {
-                        refresh(timeSpan, averageItem)
-                    })
-            }
-
-            is ResultData.Initialize -> {
-                refresh(timeSpan, averageItem)
-            }
-
-            is ResultData.Starting -> {
-                LoadingView(modifier = Modifier)
+                series(values)
+                extras { it[BottomAxisLabelKey] = labels }
             }
         }
     }
-
 }
 

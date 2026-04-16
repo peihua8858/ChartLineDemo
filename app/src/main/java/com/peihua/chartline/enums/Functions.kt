@@ -19,7 +19,7 @@ enum class MainFunctions(
     override val value: String,
     override val drawableId: Int = 0,
     override val description: String = "",
-    override val isVisible: Boolean = true
+    override val isVisible: Boolean = true,
 ) : Functions {
     AP_CHART(
         "MP Android Chart",
@@ -76,5 +76,19 @@ enum class MainFunctions(
         R.mipmap.ic_launcher_round,
         "基于Jetpack Compose 多平台（Android · iOS）图表库，支持折线图-条形图-饼图。",
         false
+    ),
+    NETGURU_CHART(
+        "Netguru Chart",
+        LineChartRoute.NetguruChart.value,
+        R.mipmap.ic_launcher_round,
+        "基于Jetpack Compose Android平台图表库，支持折线图-条形图-饼图-雷达图-气泡图和蜡烛图。",
+        true
+    ),
+    STOCK_CHART(
+        "Stock Chart",
+        LineChartRoute.StockChart.value,
+        R.mipmap.ic_launcher_round,
+        "基于Jetpack Compose Android平台图表库，支持折线图-条形图-饼图-雷达图-气泡图和蜡烛图。",
+        true
     ),
 }

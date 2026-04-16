@@ -31,25 +31,27 @@ import com.peihua.chartline.component.LoadingView
 import com.peihua.chartline.component.Toolbar
 import com.peihua.chartline.enums.QuoteTimeSpan
 import com.peihua.chartline.enums.RollingAverage
+import com.peihua.chartline.model.MarketInformation
 import com.peihua.chartline.model.StatsDetail
+import com.peihua.chartline.viewmodel.MarketViewModel
 import com.peihua.chartline.viewmodel.StatsViewModel
 import com.peihua8858.compose.tools.Items
 import com.peihua8858.tools.model.ResultData
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun BaseStatsDataScreen(
+fun BaseMarkPriceDataScreen(
     navController: NavController,
-    viewModel: StatsViewModel = hiltViewModel(),
+    viewModel: MarketViewModel = hiltViewModel(),
     @StringRes titleRes: Int = 0,
     chartView: @Composable (
         modifier: Modifier,
-        data: StatsDetail<Entry>,
+        data: MarketInformation,
     ) -> Unit,
 ) {
     val resource = LocalResources.current
     val title = if (titleRes != 0) resource.getString(titleRes) else ""
-    BaseStatsDataScreen(
+    BaseMarkPriceDataScreen(
         navController, viewModel,
         title = title,
         chartView
@@ -58,17 +60,17 @@ fun BaseStatsDataScreen(
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun BaseStatsDataScreen(
+fun BaseMarkPriceDataScreen(
     navController: NavController,
-    viewModel: StatsViewModel = hiltViewModel(),
+    viewModel: MarketViewModel = hiltViewModel(),
     title: String = "Base Stats Data Chart",
     chartView: @Composable (
         modifier: Modifier,
-        data: StatsDetail<Entry>,
+        data: MarketInformation,
     ) -> Unit,
 ) {
     val refresh = { timeSpan: QuoteTimeSpan, averageItem: RollingAverage ->
-        viewModel.fetchStatsDetail(timeSpan, averageItem)
+        viewModel.fetchMarketInformation(timeSpan, averageItem)
     }
     Toolbar(
         title = title,
@@ -134,9 +136,9 @@ private fun ChartViewContent(
     modifier: Modifier = Modifier,
     timeSpan: QuoteTimeSpan,
     averageItem: RollingAverage,
-    state: ResultData<StatsDetail<Entry>>,
+    state: ResultData<MarketInformation>,
     refresh: (timeSpan: QuoteTimeSpan, averageItem: RollingAverage) -> Unit,
-    chartView: @Composable (modifier: Modifier, data: StatsDetail<Entry>) -> Unit,
+    chartView: @Composable (modifier: Modifier, data: MarketInformation) -> Unit,
 ) {
     Box(
         modifier = modifier

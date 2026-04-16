@@ -6,20 +6,20 @@ import com.peihua.chartline.model.MarketPriceChartResponse
 import javax.inject.Inject
 
 interface MarketRepository {
-    suspend fun fetchMarketPriceChart(timespan: String): MarketPriceChartResponse
+    suspend fun fetchMarketPriceChart(timespan: String,rollingAverage: String): MarketPriceChartResponse
 }
 
 class MarketRepositoryImpl @Inject constructor(
     private val marketRemoteDataSource: MarketRemoteDataSource,
 ) : MarketRepository {
 
-    override suspend fun fetchMarketPriceChart(timespan: String): MarketPriceChartResponse {
-        return fetchMarketDataFromRemote(timespan)
+    override suspend fun fetchMarketPriceChart(timespan: String,rollingAverage: String): MarketPriceChartResponse {
+        return fetchMarketDataFromRemote(timespan,rollingAverage)
     }
 
     @VisibleForTesting
-    suspend fun fetchMarketDataFromRemote(timeSpan: String) =
-        marketRemoteDataSource.fetchMarketPriceChart(timeSpan)
+    suspend fun fetchMarketDataFromRemote(timeSpan: String,rollingAverage: String) =
+        marketRemoteDataSource.fetchMarketPriceChart(timeSpan,rollingAverage)
             .also { marketRemoteData ->
                 insertMarketResponse(
                     timeSpan = timeSpan,

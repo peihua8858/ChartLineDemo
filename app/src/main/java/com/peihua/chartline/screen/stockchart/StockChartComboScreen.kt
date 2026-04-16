@@ -1,10 +1,11 @@
-package com.peihua.chartline.screen.ycharts
+package com.peihua.chartline.screen.stockchart
 
 import androidx.compose.foundation.layout.heightIn
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import com.github.mikephil.charting.data.Entry
 import com.patrykandpatrick.vico.compose.cartesian.CartesianChartHost
@@ -14,11 +15,16 @@ import com.patrykandpatrick.vico.compose.cartesian.axis.VerticalAxis
 import com.patrykandpatrick.vico.compose.cartesian.data.CartesianChartModelProducer
 import com.patrykandpatrick.vico.compose.cartesian.data.CartesianValueFormatter
 import com.patrykandpatrick.vico.compose.cartesian.data.columnSeries
+import com.patrykandpatrick.vico.compose.cartesian.data.lineSeries
+import com.patrykandpatrick.vico.compose.cartesian.layer.LineCartesianLayer
 import com.patrykandpatrick.vico.compose.cartesian.layer.rememberColumnCartesianLayer
+import com.patrykandpatrick.vico.compose.cartesian.layer.rememberLineCartesianLayer
 import com.patrykandpatrick.vico.compose.cartesian.rememberCartesianChart
+import com.patrykandpatrick.vico.compose.common.Fill
 import com.patrykandpatrick.vico.compose.common.data.ExtraStore
 import com.peihua.chartline.model.StatsDetail
 import com.peihua.chartline.utils.format
+
 
 private val BottomAxisLabelKey = ExtraStore.Key<List<String>>()
 private val BottomAxisValueFormatter = CartesianValueFormatter { context, x, _ ->
@@ -26,7 +32,7 @@ private val BottomAxisValueFormatter = CartesianValueFormatter { context, x, _ -
 }
 
 @Composable
-fun YChartsColumnContent(
+fun StockChartComboContent(
     modifier: Modifier = Modifier,
     data: StatsDetail<Entry>,
 ) {
@@ -36,6 +42,11 @@ fun YChartsColumnContent(
         chart =
             rememberCartesianChart(
                 rememberColumnCartesianLayer(),
+                rememberLineCartesianLayer(
+                    LineCartesianLayer.LineProvider.series(
+                        LineCartesianLayer.Line(LineCartesianLayer.LineFill.single(Fill(Color(0xffee2b2b))))
+                    )
+                ),
                 startAxis = VerticalAxis.rememberStart(
                     size = BaseAxis.Size.Fixed(100.dp)
                 ),
@@ -48,19 +59,23 @@ fun YChartsColumnContent(
         modelProducer = modelProducer,
     )
     LaunchedEffect(Unit) {
+        val transactionsEntries = data.transactionsEntries
+        val values = mutableListOf<Float>()
+        val labels = mutableListOf<String>()
+        transactionsEntries.forEach {
+            val time = it.x.format("HH:mm:ss")
+            values.add(it.y)
+            labels.add(time)
+        }
         modelProducer.runTransaction {
+            lineSeries {
+                series(values)
+            }
             columnSeries {
-                val transactionsEntries = data.transactionsEntries
-                val values = mutableListOf<Float>()
-                val labels = mutableListOf<String>()
-                transactionsEntries.forEach {
-                    val time = it.x.format("HH:mm:ss")
-                    values.add(it.y)
-                    labels.add(time)
-                }
                 series(values)
                 extras { it[BottomAxisLabelKey] = labels }
             }
         }
     }
+
 }

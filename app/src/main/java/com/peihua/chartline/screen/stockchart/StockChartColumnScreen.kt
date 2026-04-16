@@ -1,4 +1,4 @@
-package com.peihua.chartline.screen.ycharts
+package com.peihua.chartline.screen.stockchart
 
 import androidx.compose.foundation.layout.heightIn
 import androidx.compose.runtime.Composable
@@ -26,7 +26,7 @@ private val BottomAxisValueFormatter = CartesianValueFormatter { context, x, _ -
 }
 
 @Composable
-fun YChartsColumnContent(
+fun StockChartColumnContent(
     modifier: Modifier = Modifier,
     data: StatsDetail<Entry>,
 ) {
@@ -63,4 +63,5 @@ fun YChartsColumnContent(
             }
         }
     }
+
 }

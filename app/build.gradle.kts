@@ -99,5 +99,6 @@ dependencies {
     implementation ("io.github.ehsannarmani:compose-charts:0.2.5")
     implementation("io.github.thechance101:chart:1.1.0")
     implementation("com.github.wangyiqian:StockChart:1.1.16")
-    implementation("com.github.peihua8858.compose-multiplatform-charts:charts:1.0.0-alpha")
+    implementation("com.github.peihua8858.compose-multiplatform-charts:charts:1.0.0-alpha1")
+    api(libs.time.klock)
 }
